@@ -1,0 +1,66 @@
+import os
+from dataclasses import dataclass
+from pathlib import Path
+
+from dotenv import load_dotenv
+import weaviate
+import weaviate.classes as wvc
+
+
+@dataclass
+class EnvironmentConfig:
+    weaviate_url: str
+    weaviate_api_key: str
+    openai_api_key: str | None
+    inference_provider_api_key: str | None
+    reset_collections: bool
+
+
+def as_bool(value: str | None, default: bool = False) -> bool:
+    if value is None:
+        return default
+    return value.strip().lower() in {"1", "true", "yes", "y", "on"}
+
+
+def load_environment_config() -> EnvironmentConfig:
+    load_dotenv()
+    if not os.getenv("WEAVIATE_URL") or not os.getenv("WEAVIATE_API_KEY"):
+        env_example = Path(__file__).resolve().parent.parent / ".env.example"
+        if env_example.exists():
+            load_dotenv(dotenv_path=env_example, override=False)
+
+    weaviate_url = os.getenv("WEAVIATE_URL")
+    weaviate_api_key = os.getenv("WEAVIATE_API_KEY")
+    openai_api_key = os.getenv("OPENAI_API_KEY")
+    inference_provider_api_key = os.getenv("INFERENCE_PROVIDER_API_KEY")
+    reset_collections = as_bool(os.getenv("RESET_COLLECTIONS"), default=False)
+
+    if not weaviate_url or not weaviate_api_key:
+        raise ValueError(
+            "Missing WEAVIATE_URL or WEAVIATE_API_KEY in environment variables."
+        )
+
+    return EnvironmentConfig(
+        weaviate_url=weaviate_url,
+        weaviate_api_key=weaviate_api_key,
+        openai_api_key=openai_api_key,
+        inference_provider_api_key=inference_provider_api_key,
+        reset_collections=reset_collections,
+    )
+
+
+def build_inference_headers(config: EnvironmentConfig) -> dict[str, str]:
+    headers: dict[str, str] = {}
+    if config.openai_api_key:
+        headers["X-OpenAI-Api-Key"] = config.openai_api_key
+    if config.inference_provider_api_key:
+        headers["X-INFERENCE-PROVIDER-API-KEY"] = config.inference_provider_api_key
+    return headers
+
+
+def connect_weaviate_client(config: EnvironmentConfig) -> weaviate.WeaviateClient:
+    return weaviate.connect_to_weaviate_cloud(
+        cluster_url=config.weaviate_url,
+        auth_credentials=wvc.init.Auth.api_key(config.weaviate_api_key),
+        headers=build_inference_headers(config),
+    )

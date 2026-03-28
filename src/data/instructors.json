@@ -1,0 +1,50 @@
+[
+  {
+    "instructor_id": "INS-001",
+    "full_name": "Dr. Elena Petrova",
+    "department": "Computer Science",
+    "bio": "Specializes in machine learning, natural language processing, and AI ethics with over 10 years of teaching experience.",
+    "research_interests": ["machine learning", "nlp", "ai ethics"],
+    "years_experience": 12
+  },
+  {
+    "instructor_id": "INS-002",
+    "full_name": "Prof. Ivan Georgiev",
+    "department": "Computer Science",
+    "bio": "Focuses on distributed systems, cloud architectures, and high-performance backend engineering.",
+    "research_interests": ["distributed systems", "cloud computing", "microservices"],
+    "years_experience": 18
+  },
+  {
+    "instructor_id": "INS-003",
+    "full_name": "Assoc. Prof. Maria Nikolova",
+    "department": "Data Science",
+    "bio": "Works on data mining, recommendation systems, and practical analytics for education and healthcare.",
+    "research_interests": ["data mining", "recommender systems", "applied analytics"],
+    "years_experience": 14
+  },
+  {
+    "instructor_id": "INS-004",
+    "full_name": "Dr. Petar Stoyanov",
+    "department": "Software Engineering",
+    "bio": "Teaches software architecture, clean code practices, and agile project delivery for large teams.",
+    "research_interests": ["software architecture", "agile", "code quality"],
+    "years_experience": 11
+  },
+  {
+    "instructor_id": "INS-005",
+    "full_name": "Dr. Gergana Dimitrova",
+    "department": "Information Systems",
+    "bio": "Researches database systems, information retrieval, and secure data management in enterprise settings.",
+    "research_interests": ["databases", "information retrieval", "data security"],
+    "years_experience": 9
+  },
+  {
+    "instructor_id": "INS-006",
+    "full_name": "Prof. Dimitar Kolev",
+    "department": "Computer Science",
+    "bio": "Expert in algorithms, computational complexity, and contest-oriented problem-solving methods.",
+    "research_interests": ["algorithms", "complexity", "optimization"],
+    "years_experience": 20
+  }
+]

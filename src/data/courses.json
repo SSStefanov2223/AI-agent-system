@@ -1,0 +1,122 @@
+[
+  {
+    "course_code": "CS301",
+    "title": "Machine Learning Fundamentals",
+    "description": "Introduces supervised and unsupervised learning, model evaluation, feature engineering, and practical model deployment basics.",
+    "department": "Computer Science",
+    "level": "Bachelor",
+    "ects": 6,
+    "language": "English",
+    "semester": "Winter",
+    "skills": ["python", "classification", "regression", "model evaluation"],
+    "instructor_id": "INS-001"
+  },
+  {
+    "course_code": "CS410",
+    "title": "Natural Language Processing",
+    "description": "Covers text preprocessing, embeddings, transformers, and building NLP pipelines for real-world applications.",
+    "department": "Computer Science",
+    "level": "Master",
+    "ects": 6,
+    "language": "English",
+    "semester": "Summer",
+    "skills": ["nlp", "transformers", "deep learning", "text mining"],
+    "instructor_id": "INS-001"
+  },
+  {
+    "course_code": "CS350",
+    "title": "Cloud and Distributed Systems",
+    "description": "Explains distributed system design, CAP theorem, service communication, and scalable cloud-native deployment strategies.",
+    "department": "Computer Science",
+    "level": "Bachelor",
+    "ects": 5,
+    "language": "English",
+    "semester": "Winter",
+    "skills": ["distributed systems", "docker", "kubernetes", "microservices"],
+    "instructor_id": "INS-002"
+  },
+  {
+    "course_code": "DS402",
+    "title": "Recommender Systems",
+    "description": "Presents collaborative filtering, content-based recommendations, ranking metrics, and hybrid recommendation approaches.",
+    "department": "Data Science",
+    "level": "Master",
+    "ects": 6,
+    "language": "English",
+    "semester": "Winter",
+    "skills": ["recommendation", "ranking", "matrix factorization", "evaluation"],
+    "instructor_id": "INS-003"
+  },
+  {
+    "course_code": "DS220",
+    "title": "Data Mining",
+    "description": "Introduces pattern discovery, clustering, association rules, and exploratory analysis on large datasets.",
+    "department": "Data Science",
+    "level": "Bachelor",
+    "ects": 5,
+    "language": "Bulgarian",
+    "semester": "Summer",
+    "skills": ["clustering", "association rules", "feature extraction", "analytics"],
+    "instructor_id": "INS-003"
+  },
+  {
+    "course_code": "SE330",
+    "title": "Software Architecture",
+    "description": "Focuses on architectural styles, design trade-offs, quality attributes, and architecture documentation techniques.",
+    "department": "Software Engineering",
+    "level": "Bachelor",
+    "ects": 6,
+    "language": "English",
+    "semester": "Winter",
+    "skills": ["architecture", "design patterns", "quality attributes", "documentation"],
+    "instructor_id": "INS-004"
+  },
+  {
+    "course_code": "SE415",
+    "title": "Agile Project Management",
+    "description": "Covers Scrum and Kanban practices, agile estimation, stakeholder communication, and iterative product delivery.",
+    "department": "Software Engineering",
+    "level": "Master",
+    "ects": 4,
+    "language": "Bulgarian",
+    "semester": "Summer",
+    "skills": ["scrum", "kanban", "planning", "team collaboration"],
+    "instructor_id": "INS-004"
+  },
+  {
+    "course_code": "IS305",
+    "title": "Information Retrieval",
+    "description": "Teaches indexing, vector-space models, search relevance, and evaluation of retrieval quality.",
+    "department": "Information Systems",
+    "level": "Bachelor",
+    "ects": 5,
+    "language": "English",
+    "semester": "Winter",
+    "skills": ["indexing", "search", "retrieval", "evaluation"],
+    "instructor_id": "INS-005"
+  },
+  {
+    "course_code": "IS340",
+    "title": "Database Systems",
+    "description": "Introduces relational modeling, SQL optimization, transactions, and practical data modeling for business systems.",
+    "department": "Information Systems",
+    "level": "Bachelor",
+    "ects": 6,
+    "language": "Bulgarian",
+    "semester": "Summer",
+    "skills": ["sql", "normalization", "transactions", "query optimization"],
+    "instructor_id": "INS-005"
+  },
+  {
+    "course_code": "CS210",
+    "title": "Advanced Algorithms",
+    "description": "Studies graph algorithms, dynamic programming, approximation methods, and algorithmic complexity analysis.",
+    "department": "Computer Science",
+    "level": "Bachelor",
+    "ects": 6,
+    "language": "English",
+    "semester": "Summer",
+    "skills": ["graphs", "dynamic programming", "complexity", "optimization"],
+    "instructor_id": "INS-006"
+  }
+]
