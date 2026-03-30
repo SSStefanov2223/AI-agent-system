@@ -21,11 +21,34 @@ Install dependencies:
 pip install -r requirements.txt
 ```
 
+## Environment setup
+
+Copy `.env.example` to `.env` and fill in real values:
+
+```dotenv
+WEAVIATE_URL=https://your-cluster-id.weaviate.network
+WEAVIATE_API_KEY=your-weaviate-api-key
+OPENAI_API_KEY=your-openai-api-key
+GEMINI_API_KEY=your-gemini-api-key
+LLM_PROVIDER=openai
+RESET_COLLECTIONS=true
+```
+
+`RESET_COLLECTIONS=true` will delete and recreate `Courses` and `Instructors` before loading.
+
+To use Gemini instead of OpenAI, set:
+
+```dotenv
+LLM_PROVIDER=gemini
+GEMINI_API_KEY=your-gemini-api-key
+```
 ## Run data modeling + import
 
 ```bash
 python src/load_data.py
 ```
+
+If you changed `LLM_PROVIDER`, keep `RESET_COLLECTIONS=true` for one run so collections are recreated with the matching vectorizer/provider config.
 
 Successful run will:
 

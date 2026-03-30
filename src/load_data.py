@@ -32,17 +32,29 @@ def ensure_schema(client: weaviate.WeaviateClient, reset_collections: bool) -> N
     recreate_if_needed(client, INSTRUCTORS_COLLECTION, reset_collections)
     recreate_if_needed(client, COURSES_COLLECTION, reset_collections)
 
+    config = load_environment_config()
+    if config.llm_provider == "gemini":
+        vectorizer_config = wvc.config.Configure.Vectorizer.text2vec_google_aistudio()
+        generative_config = wvc.config.Configure.Generative.google_gemini(
+            model="gemini-2.0-flash"
+        )
+    else:
+        vectorizer_config = wvc.config.Configure.Vectorizer.text2vec_openai()
+        generative_config = wvc.config.Configure.Generative.openai(model="gpt-4o-mini")
+
     if not client.collections.exists(INSTRUCTORS_COLLECTION):
         client.collections.create(
             name=INSTRUCTORS_COLLECTION,
-            vectorizer_config=wvc.config.Configure.Vectorizer.text2vec_openai(),
+            vectorizer_config=vectorizer_config,
+            generative_config=generative_config,
             properties=instructors_schema_properties(),
         )
 
     if not client.collections.exists(COURSES_COLLECTION):
         client.collections.create(
             name=COURSES_COLLECTION,
-            vectorizer_config=wvc.config.Configure.Vectorizer.text2vec_openai(),
+            vectorizer_config=vectorizer_config,
+            generative_config=generative_config,
             properties=courses_schema_properties(),
         )
 

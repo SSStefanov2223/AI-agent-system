@@ -11,7 +11,9 @@ import weaviate.classes as wvc
 class EnvironmentConfig:
     weaviate_url: str
     weaviate_api_key: str
+    llm_provider: str
     openai_api_key: str | None
+    gemini_api_key: str | None
     inference_provider_api_key: str | None
     reset_collections: bool
 
@@ -29,9 +31,11 @@ def load_environment_config() -> EnvironmentConfig:
         if env_example.exists():
             load_dotenv(dotenv_path=env_example, override=False)
 
+    llm_provider = (os.getenv("LLM_PROVIDER") or "openai").strip().lower()
     weaviate_url = os.getenv("WEAVIATE_URL")
     weaviate_api_key = os.getenv("WEAVIATE_API_KEY")
     openai_api_key = os.getenv("OPENAI_API_KEY")
+    gemini_api_key = os.getenv("GEMINI_API_KEY")
     inference_provider_api_key = os.getenv("INFERENCE_PROVIDER_API_KEY")
     reset_collections = as_bool(os.getenv("RESET_COLLECTIONS"), default=False)
 
@@ -40,10 +44,25 @@ def load_environment_config() -> EnvironmentConfig:
             "Missing WEAVIATE_URL or WEAVIATE_API_KEY in environment variables."
         )
 
+    if llm_provider not in {"openai", "gemini"}:
+        raise ValueError("LLM_PROVIDER must be either 'openai' or 'gemini'.")
+
+    if llm_provider == "openai" and not (openai_api_key or inference_provider_api_key):
+        raise ValueError(
+            "Missing OPENAI_API_KEY (or INFERENCE_PROVIDER_API_KEY) for LLM_PROVIDER=openai."
+        )
+
+    if llm_provider == "gemini" and not (gemini_api_key or inference_provider_api_key):
+        raise ValueError(
+            "Missing GEMINI_API_KEY (or INFERENCE_PROVIDER_API_KEY) for LLM_PROVIDER=gemini."
+        )
+
     return EnvironmentConfig(
         weaviate_url=weaviate_url,
         weaviate_api_key=weaviate_api_key,
+        llm_provider=llm_provider,
         openai_api_key=openai_api_key,
+        gemini_api_key=gemini_api_key,
         inference_provider_api_key=inference_provider_api_key,
         reset_collections=reset_collections,
     )
@@ -51,8 +70,13 @@ def load_environment_config() -> EnvironmentConfig:
 
 def build_inference_headers(config: EnvironmentConfig) -> dict[str, str]:
     headers: dict[str, str] = {}
-    if config.openai_api_key:
+    if config.llm_provider == "openai" and config.openai_api_key:
         headers["X-OpenAI-Api-Key"] = config.openai_api_key
+    if config.llm_provider == "gemini" and config.gemini_api_key:
+        # Some Weaviate Google integrations accept X-Goog-Api-Key, others X-Google-Api-Key.
+        # Sending both keeps local app config simple.
+        headers["X-Goog-Api-Key"] = config.gemini_api_key
+        headers["X-Google-Api-Key"] = config.gemini_api_key
     if config.inference_provider_api_key:
         headers["X-INFERENCE-PROVIDER-API-KEY"] = config.inference_provider_api_key
     return headers
